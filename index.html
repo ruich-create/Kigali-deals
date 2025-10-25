@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My New Website - Welcome!</title>
+    <title>Kigali Deals - Rentals, Sales & More</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,6 +11,7 @@
             padding: 20px;
             background-color: #f4f4f4;
             color: #333;
+            line-height: 1.6;
         }
         .welcome {
             text-align: center;
@@ -18,31 +19,162 @@
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
         h1 {
             color: #4CAF50;
             font-size: 2.5em;
         }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
+        .filter-section {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        img {
-            max-width: 100%;
-            height: auto;
+        #filter {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            background: #fff;
+        }
+        .listings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .listing-card {
+            background: #fff;
             border-radius: 10px;
-            margin: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .listing-card:hover {
+            transform: translateY(-5px);
+        }
+        .listing-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .card-title {
+            color: #4CAF50;
+            font-size: 1.4em;
+            margin: 0 0 10px;
+        }
+        .card-price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .card-desc {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .btn {
+            background: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .listings {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2em; }
         }
     </style>
 </head>
 <body>
     <div class="welcome">
-        <h1>Welcome to My New Website!</h1>
-        <img src="house-kigali.jpg" alt="House in Kigali" style="max-width: 300px;">
-        <img src="plot-1.jpg" alt="Plot of land for sale" style="max-width: 300px;">
-        <img src="transport-van.jpg" alt="Transport van service" style="max-width: 300px;">
-        <p>Hello! I'm thrilled you've found your way here. This is my second GitHub Pages site, showcasing some real estate and transport options in Kigali.</p>
-        <p>Check out these highlights: a cozy house, prime plot, and reliable van service. Feel free to explore—more details coming soon!</p>
+        <h1>Welcome to Kigali Deals!</h1>
+        <p>Discover rentals, used materials on sale, plots, and car rentals in Kigali. Browse, filter, and contact us today!</p>
     </div>
+
+    <div class="filter-section">
+        <label for="filter">Filter by Category: </label>
+        <select id="filter" onchange="filterListings()">
+            <option value="all">All Listings</option>
+            <option value="rentals">House Rentals</option>
+            <option value="materials">Used Materials</option>
+            <option value="plots">Plots on Sale</option>
+            <option value="cars">Car Rentals</option>
+        </select>
+    </div>
+
+    <div class="listings" id="listings">
+        <!-- House Rentals Section -->
+        <div class="listing-card" data-category="rentals">
+            <img src="house-kigali.jpg" alt="Cozy house in Kigali">
+            <div class="card-content">
+                <h3 class="card-title">Cozy 2-Bed House Rental</h3>
+                <p class="card-price">RWF 500,000/month</p>
+                <p class="card-desc">Modern house in central Kigali with garden. Available now!</p>
+                <a href="mailto:contact@kigalideals.com?subject=House Rental Inquiry" class="btn">Inquire</a>
+            </div>
+        </div>
+
+        <!-- Used Materials Section -->
+        <div class="listing-card" data-category="materials">
+            <img src="plot-1.jpg" alt="Used construction materials"> <!-- Reuse your image for demo -->
+            <div class="card-content">
+                <h3 class="card-title">Used Bricks & Cement</h3>
+                <p class="card-price">RWF 50,000/bundle</p>
+                <p class="card-desc">Quality used materials from recent builds—perfect for DIY projects.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Materials Inquiry" class="btn">Buy Now</a>
+            </div>
+        </div>
+
+        <!-- Plots Section -->
+        <div class="listing-card" data-category="plots">
+            <img src="plot-1.jpg" alt="Prime plot in Kigali suburbs">
+            <div class="card-content">
+                <h3 class="card-title">500sqm Plot for Sale</h3>
+                <p class="card-price">RWF 20,000,000</p>
+                <p class="card-desc">Fertile land in growing suburb, ready for your dream home.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Plot Inquiry" class="btn">View Details</a>
+            </div>
+        </div>
+
+        <!-- Car Rentals Section -->
+        <div class="listing-card" data-category="cars">
+            <img src="transport-van.jpg" alt="Reliable rental van">
+            <div class="card-content">
+                <h3 class="card-title">Toyota Van Rental</h3>
+                <p class="card-price">RWF 100,000/day</p>
+                <p class="card-desc">Spacious van for family trips or business—includes insurance.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Car Rental Inquiry" class="btn">Book Now</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterListings() {
+            const filter = document.getElementById('filter').value;
+            const cards = document.querySelectorAll('.listing-card');
+            cards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
