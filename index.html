@@ -5,347 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IBYIZA IWACU - Home of Real Deals</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
-        }
-        .welcome {
-            text-align: center;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        .logo {
-            max-width: 200px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #4CAF50;
-            font-size: 2.5em;
-        }
-        .welcome p {
-            font-size: 1.2em;
-            margin: 10px 0;
-        }
-        .filter-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        #filter {
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #4CAF50;
-            border-radius: 5px;
-            background: #fff;
-        }
-        .category-banner {
-            text-align: center;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #4CAF50, #45a049);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            display: none;
-        }
-        .carousel-container {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-        .carousel {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel img {
-            min-width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 18px;
-        }
-        .carousel-btn.prev { left: 10px; }
-        .carousel-btn.next { right: 10px; }
-        .listings {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .listing-card {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        .listing-card:hover {
-            transform: translateY(-5px);
-        }
-        .listing-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .card-content {
-            padding: 15px;
-        }
-        .card-title {
-            color: #4CAF50;
-            font-size: 1.4em;
-            margin: 0 0 10px;
-        }
-        .card-price {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        .card-desc {
-            font-size: 0.9em;
-            color: #666;
-        }
-        .btn {
-            background: #4CAF50;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn:hover {
-            background: #45a049;
-        }
-        .hidden {
-            display: none;
-        }
-        .contact {
-            background: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            border-radius: 10px;
-            margin-top: 40px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .contact h2 {
-            margin-top: 0;
-            font-size: 1.8em;
-        }
-        .contact a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .contact a:hover {
-            text-decoration: underline;
-        }
-        .phone {
-            font-size: 1.1em;
-            margin: 10px 0;
-        }
-        @media (max-width: 600px) {
-            .listings {
-                grid-template-columns: 1fr;
-            }
-            h1 { font-size: 2em; }
-            .carousel img { height: 150px; }
-            .welcome { padding: 20px; }
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; line-height: 1.6; }
+        nav { position: fixed; top: 0; width: 100%; background: #4CAF50; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 1000; }
+        nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; }
+        nav li { position: relative; }
+        nav a { display: block; color: white; text-decoration: none; padding: 15px 20px; font-weight: bold; }
+        nav a:hover { background: #45a049; }
+        .dropdown { position: absolute; top: 100%; left: 0; background: #4CAF50; min-width: 200px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: none; }
+        .dropdown a { padding: 10px 20px; }
+        li:hover .dropdown { display: block; }
+        .hamburger { display: none; background: none; border: none; color: white; font-size: 20px; padding: 15px; cursor: pointer; }
+        @media (max-width: 600px) { nav ul { flex-direction: column; display: none; } .hamburger { display: block; } .nav-open ul { display: flex; } }
+        main { margin-top: 60px; padding: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .hero { text-align: center; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .logo { max-width: 200px; height: auto; margin-bottom: 20px; }
+        h1 { color: #4CAF50; font-size: 2.5em; }
+        .teaser-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .teaser-card { background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .teaser-card a { color: #4CAF50; font-weight: bold; text-decoration: none; }
+        .teaser-card a:hover { text-decoration: underline; }
+        footer { background: #4CAF50; color: white; text-align: center; padding: 20px; margin-top: 40px; }
+        footer a { color: white; text-decoration: none; }
     </style>
 </head>
 <body>
-    <div class="welcome">
-        <img src="logo.png" alt="IBYIZA IWACU Logo" class="logo">
-        <h1>Welcome to IBYIZA IWACU!</h1>
-        <p>Your home of real deals in Kigali: Discover good affordable plots, cheap car rentals, affordable houses on sale, and used and new materials—with free delivery on all orders!</p>
-        <p>We're here to make your dreams accessible. Browse our unbeatable offers today and let's build a brighter future together.</p>
-    </div>
-
-    <div class="filter-section">
-        <label for="filter">Filter by Category: </label>
-        <select id="filter" onchange="filterAndShowBanner()">
-            <option value="all">All Listings</option>
-            <option value="house-rentals">House Rentals</option>
-            <option value="houses-sale">Houses on Sale</option>
-            <option value="materials">Used & New Materials</option>
-            <option value="plots">Plots on Sale</option>
-            <option value="cars">Car Rentals</option>
-        </select>
-    </div>
-
-    <!-- Category Banners with Automated Sliding Photos (unchanged from before) -->
-    <div id="house-rentals-banner" class="category-banner">
-        <h2>Featured House Rentals</h2>
-        <div class="carousel-container">
-            <div class="carousel" id="house-rentals-carousel">
-                <img src="house-kigali.jpg" alt="Cozy house in Kigali">
-                <img src="house-kigali-2.jpg" alt="Modern apartment rental">
-                <img src="house-kigali-3.jpg" alt="Luxury villa rental">
+    <nav>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <ul id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown-container">
+                <a href="services.html">Services</a>
+                <div class="dropdown">
+                    <a href="services.html#cars">Cars on Rent</a>
+                    <a href="services.html#house-rentals">Houses on Rent</a>
+                    <a href="services.html#houses-sale">Houses on Sale</a>
+                    <a href="services.html#materials">Materials on Sale</a>
+                </div>
+            </li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="hero">
+            <img src="logo.png" alt="IBYIZA IWACU Logo" class="logo">
+            <h1>Welcome to IBYIZA IWACU!</h1>
+            <p>Your home of real deals in Kigali: Affordable plots, cheap car rentals, houses on sale/rent, and used/new materials—with free delivery!</p>
+            <p>Explore our services below and find the perfect opportunity today.</p>
+        </section>
+        <div class="teaser-grid">
+            <div class="teaser-card">
+                <h3>Car Rentals</h3>
+                <p>Cheap and reliable rides for your needs.</p>
+                <a href="services.html#cars">Explore →</a>
             </div>
-            <button class="carousel-btn prev" onclick="changeSlide('house-rentals-carousel', -1)">❮</button>
-            <button class="carousel-btn next" onclick="changeSlide('house-rentals-carousel', 1)">❯</button>
-        </div>
-    </div>
-
-    <div id="houses-sale-banner" class="category-banner">
-        <h2>Featured Houses on Sale</h2>
-        <div class="carousel-container">
-            <div class="carousel" id="houses-sale-carousel">
-                <img src="house-sale-1.jpg" alt="House for sale in Kigali">
-                <img src="house-sale-2.jpg" alt="Family home on sale">
-                <img src="house-sale-3.jpg" alt="Investment property">
+            <div class="teaser-card">
+                <h3>Houses on Rent/Sale</h3>
+                <p>Affordable homes for every budget.</p>
+                <a href="services.html#house-rentals">Explore →</a>
             </div>
-            <button class="carousel-btn prev" onclick="changeSlide('houses-sale-carousel', -1)">❮</button>
-            <button class="carousel-btn next" onclick="changeSlide('houses-sale-carousel', 1)">❯</button>
-        </div>
-    </div>
-
-    <div id="materials-banner" class="category-banner">
-        <h2>Featured Used & New Materials</h2>
-        <div class="carousel-container">
-            <div class="carousel" id="materials-carousel">
-                <img src="materials-1.jpg" alt="Used bricks">
-                <img src="materials-2.jpg" alt="Recycled wood">
-                <img src="materials-3.jpg" alt="Cement bags">
+            <div class="teaser-card">
+                <h3>Materials on Sale</h3>
+                <p>Quality used & new building supplies.</p>
+                <a href="services.html#materials">Explore →</a>
             </div>
-            <button class="carousel-btn prev" onclick="changeSlide('materials-carousel', -1)">❮</button>
-            <button class="carousel-btn next" onclick="changeSlide('materials-carousel', 1)">❯</button>
-        </div>
-    </div>
-
-    <div id="plots-banner" class="category-banner">
-        <h2>Featured Plots on Sale</h2>
-        <div class="carousel-container">
-            <div class="carousel" id="plots-carousel">
-                <img src="plot-1.jpg" alt="Prime plot in Kigali">
-                <img src="plot-2.jpg" alt="Suburban land plot">
-                <img src="plot-3.jpg" alt="City center plot">
-            </div>
-            <button class="carousel-btn prev" onclick="changeSlide('plots-carousel', -1)">❮</button>
-            <button class="carousel-btn next" onclick="changeSlide('plots-carousel', 1)">❯</button>
-        </div>
-    </div>
-
-    <div id="cars-banner" class="category-banner">
-        <h2>Featured Car Rentals</h2>
-        <div class="carousel-container">
-            <div class="carousel" id="cars-carousel">
-                <img src="transport-van.jpg" alt="Rental van">
-                <img src="car-rental-1.jpg" alt="Sedan car rental">
-                <img src="car-rental-2.jpg" alt="SUV rental">
-            </div>
-            <button class="carousel-btn prev" onclick="changeSlide('cars-carousel', -1)">❮</button>
-            <button class="carousel-btn next" onclick="changeSlide('cars-carousel', 1)">❯</button>
-        </div>
-    </div>
-
-    <div class="listings" id="listings">
-        <!-- All previous listing cards remain the same – I've omitted them here for brevity, but copy them from your current file! -->
-        <!-- House Rentals -->
-        <div class="listing-card" data-category="house-rentals">
-            <img src="house-kigali.jpg" alt="Cozy house in Kigali">
-            <div class="card-content">
-                <h3 class="card-title">Cozy 2-Bed House Rental</h3>
-                <p class="card-price">RWF 500,000/month</p>
-                <p class="card-desc">Modern house in central Kigali with garden and parking. Available immediately. Free delivery on materials!</p>
-                <a href="mailto:info@ibyiziwacu.com?subject=House Rental Inquiry - Cozy 2-Bed" class="btn">Inquire</a>
+            <div class="teaser-card">
+                <h3>Plots on Sale</h3>
+                <p>Prime land for your future build.</p>
+                <a href="services.html#plots">Explore →</a>
             </div>
         </div>
-        <!-- Add the other 2 house rentals, 3 houses-sale, 3 materials, 3 plots, 3 cars from before – just update email to info@ibyiziwacu.com and add "Free delivery" notes where fitting. -->
-    </div>
-
-    <div class="contact">
-        <h2>Get in Touch with IBYIZA IWACU</h2>
-        <p>Ready to grab a real deal? We're just a call or email away!</p>
-        <p><strong>Email:</strong> <a href="mailto:info@ibyiziwacu.com">info@ibyiziwacu.com</a></p>
-        <p class="phone"><strong>Phone:</strong> <a href="tel:+250789815272">+250 789 815 272</a> / <a href="tel:+250780111918">+250 780 111 918</a></p>
-        <p>Visit us in Kigali for personalized service—your satisfaction is our priority!</p>
-    </div>
-
+    </main>
+    <footer>
+        <p>&copy; 2025 IBYIZA IWACU. All rights reserved. | <a href="contact.html">Contact Us</a></p>
+    </footer>
     <script>
-        // All previous JS for filters and carousels remains the same – copy from your current file!
-        let currentSlides = {};
-
-        function filterAndShowBanner() {
-            const filter = document.getElementById('filter').value;
-            const cards = document.querySelectorAll('.listing-card');
-            const banners = document.querySelectorAll('.category-banner');
-
-            banners.forEach(banner => banner.style.display = 'none');
-
-            if (filter !== 'all') {
-                const bannerId = filter + '-banner';
-                const banner = document.getElementById(bannerId);
-                if (banner) {
-                    banner.style.display = 'block';
-                    initCarousel(bannerId.replace('-banner', ''));
-                }
-            }
-
-            cards.forEach(card => {
-                if (filter === 'all' || card.dataset.category === filter) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-        }
-
-        function initCarousel(carouselId) {
-            if (!currentSlides[carouselId]) currentSlides[carouselId] = 0;
-            const carousel = document.getElementById(carouselId + '-carousel');
-            const slides = carousel.children.length;
-            if (slides > 0) {
-                updateCarousel(carouselId, currentSlides[carouselId]);
-            }
-        }
-
-        function changeSlide(carouselId, direction) {
-            const carousel = document.getElementById(carouselId);
-            const slides = carousel.children.length;
-            currentSlides[carouselId - 'carousel'] = (currentSlides[carouselId.replace('-carousel', '')] + direction + slides) % slides;
-            updateCarousel(carouselId, currentSlides[carouselId.replace('-carousel', '')]);
-        }
-
-        function updateCarousel(carouselId, slideIndex) {
-            const carousel = document.getElementById(carouselId + '-carousel');
-            carousel.style.transform = `translateX(-${slideIndex * 100}%)`;
-        }
-
-        setInterval(() => {
-            const visibleBanner = document.querySelector('.category-banner:not([style*="none"])');
-            if (visibleBanner) {
-                const carouselId = visibleBanner.id.replace('-banner', '');
-                if (currentSlides[carouselId] !== undefined) {
-                    changeSlide(carouselId + '-carousel', 1);
-                }
-            }
-        }, 3000);
-
-        filterAndShowBanner();
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('nav-open'); }
     </script>
 </body>
 </html>
