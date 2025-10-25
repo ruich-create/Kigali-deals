@@ -7,7 +7,25 @@
     <style> /* Copy nav & global CSS from index.html */ </style>
 </head>
 <body>
-    <nav> <!-- Copy nav from index.html --> </nav>
+   <nav>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <ul id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown-container">
+            <a href="services.html">Services</a> <!-- Overview page, or remove if not needed -->
+            <div class="dropdown">
+                <a href="cars.html">Cars on Rent</a>
+                <a href="house-rentals.html">Houses on Rent</a>
+                <a href="houses-sale.html">Houses on Sale</a>
+                <a href="materials.html">Materials on Sale</a>
+                <a href="plots.html">Plots on Sale</a>
+            </div>
+        </li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
     <main style="margin-top: 60px; padding: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
         <h1 style="text-align: center; color: #4CAF50;">Our History</h1>
         <p>Founded in 2015 in Kigali, IBYIZA IWACU started as a small family business helping locals find affordable housing. Today, we're Rwanda's go-to for real deals—growing from one van rental to a full suite of services with free delivery across the city.</p>
