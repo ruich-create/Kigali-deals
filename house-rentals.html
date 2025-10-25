@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houses on Rent - IBYIZA IWACU</title>
+    <!-- Copy same <style> as cars.html -->
+</head>
+<body>
+    <!-- Same nav as above -->
+    <main>
+        <section class="hero">
+            <h1>Houses on Rent</h1>
+            <p>Affordable, comfortable homes in prime Kigali locations. Flexible terms and quick move-ins!</p>
+        </section>
+        <div class="carousel-container">
+            <div class="carousel" id="house-rentals-carousel">
+                <img src="house-kigali.jpg" alt="Cozy 2-Bed House">
+                <img src="house-kigali-2.jpg" alt="Modern Apartment"> <!-- Upload -->
+                <img src="house-kigali-3.jpg" alt="Luxury Villa">
+                <img src="house-rental-4.jpg" alt="Family Home Rental"> <!-- Upload extra -->
+            </div>
+            <button class="carousel-btn prev" onclick="changeSlide('house-rentals-carousel', -1)">❮</button>
+            <button class="carousel-btn next" onclick="changeSlide('house-rentals-carousel', 1)">❯</button>
+        </div>
+        <div class="listings">
+            <div class="listing-card">
+                <img src="house-kigali.jpg" alt="Cozy House">
+                <div class="card-content">
+                    <h3 class="card-title">Cozy 2-Bed House</h3>
+                    <p class="card-price">RWF 500,000/month</p>
+                    <p class="card-desc">Garden and parking included.</p>
+                    <a href="mailto:info@ibyiziwacu.com?subject=House Rental - Cozy" class="btn">Inquire</a>
+                </div>
+            </div>
+            <!-- Add 2-3 more rental cards with photos/descriptions -->
+        </div>
+    </main>
+    <footer><!-- Same --></footer>
+    <script>
+        // Same JS as cars.html, but update ID to 'house-rentals-carousel'
+        let currentSlide = 0;
+        const carousel = document.getElementById('house-rentals-carousel');
+        // ... (rest identical)
+    </script>
+</body>
+</html>
