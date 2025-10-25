@@ -36,6 +36,44 @@
             border-radius: 5px;
             background: #fff;
         }
+        .category-banner {
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none; /* Hidden by default, shown via JS on filter */
+        }
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel img {
+            min-width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
         .listings {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -97,76 +135,263 @@
                 grid-template-columns: 1fr;
             }
             h1 { font-size: 2em; }
+            .carousel img { height: 150px; }
         }
     </style>
 </head>
 <body>
     <div class="welcome">
         <h1>Welcome to Kigali Deals!</h1>
-        <p>Discover rentals, used materials on sale, plots, and car rentals in Kigali. Browse, filter, and contact us today!</p>
+        <p>Discover house rentals, houses on sale, used materials, plots on sale, and car rentals in Kigali. Use the filter to browse categories and see featured photos!</p>
     </div>
 
     <div class="filter-section">
         <label for="filter">Filter by Category: </label>
-        <select id="filter" onchange="filterListings()">
+        <select id="filter" onchange="filterAndShowBanner()">
             <option value="all">All Listings</option>
-            <option value="rentals">House Rentals</option>
+            <option value="house-rentals">House Rentals</option>
+            <option value="houses-sale">Houses on Sale</option>
             <option value="materials">Used Materials</option>
             <option value="plots">Plots on Sale</option>
             <option value="cars">Car Rentals</option>
         </select>
     </div>
 
+    <!-- Category Banners with Automated Waving (Sliding) Photos -->
+    <div id="house-rentals-banner" class="category-banner">
+        <h2>Featured House Rentals</h2>
+        <div class="carousel-container">
+            <div class="carousel" id="house-rentals-carousel">
+                <img src="house-kigali.jpg" alt="Cozy house in Kigali">
+                <img src="house-kigali-2.jpg" alt="Modern apartment rental"> <!-- Upload this image -->
+                <img src="house-kigali-3.jpg" alt="Luxury villa rental"> <!-- Upload this image -->
+            </div>
+            <button class="carousel-btn prev" onclick="changeSlide('house-rentals-carousel', -1)">❮</button>
+            <button class="carousel-btn next" onclick="changeSlide('house-rentals-carousel', 1)">❯</button>
+        </div>
+    </div>
+
+    <div id="houses-sale-banner" class="category-banner">
+        <h2>Featured Houses on Sale</h2>
+        <div class="carousel-container">
+            <div class="carousel" id="houses-sale-carousel">
+                <img src="house-sale-1.jpg" alt="House for sale in Kigali"> <!-- Upload this image -->
+                <img src="house-sale-2.jpg" alt="Family home on sale"> <!-- Upload this image -->
+                <img src="house-sale-3.jpg" alt="Investment property"> <!-- Upload this image -->
+            </div>
+            <button class="carousel-btn prev" onclick="changeSlide('houses-sale-carousel', -1)">❮</button>
+            <button class="carousel-btn next" onclick="changeSlide('houses-sale-carousel', 1)">❯</button>
+        </div>
+    </div>
+
+    <div id="materials-banner" class="category-banner">
+        <h2>Featured Used Materials</h2>
+        <div class="carousel-container">
+            <div class="carousel" id="materials-carousel">
+                <img src="materials-1.jpg" alt="Used bricks"> <!-- Upload this image -->
+                <img src="materials-2.jpg" alt="Recycled wood"> <!-- Upload this image -->
+                <img src="materials-3.jpg" alt="Cement bags"> <!-- Upload this image -->
+            </div>
+            <button class="carousel-btn prev" onclick="changeSlide('materials-carousel', -1)">❮</button>
+            <button class="carousel-btn next" onclick="changeSlide('materials-carousel', 1)">❯</button>
+        </div>
+    </div>
+
+    <div id="plots-banner" class="category-banner">
+        <h2>Featured Plots on Sale</h2>
+        <div class="carousel-container">
+            <div class="carousel" id="plots-carousel">
+                <img src="plot-1.jpg" alt="Prime plot in Kigali">
+                <img src="plot-2.jpg" alt="Suburban land plot"> <!-- Upload this image -->
+                <img src="plot-3.jpg" alt="City center plot"> <!-- Upload this image -->
+            </div>
+            <button class="carousel-btn prev" onclick="changeSlide('plots-carousel', -1)">❮</button>
+            <button class="carousel-btn next" onclick="changeSlide('plots-carousel', 1)">❯</button>
+        </div>
+    </div>
+
+    <div id="cars-banner" class="category-banner">
+        <h2>Featured Car Rentals</h2>
+        <div class="carousel-container">
+            <div class="carousel" id="cars-carousel">
+                <img src="transport-van.jpg" alt="Rental van">
+                <img src="car-rental-1.jpg" alt="Sedan car rental"> <!-- Upload this image -->
+                <img src="car-rental-2.jpg" alt="SUV rental"> <!-- Upload this image -->
+            </div>
+            <button class="carousel-btn prev" onclick="changeSlide('cars-carousel', -1)">❮</button>
+            <button class="carousel-btn next" onclick="changeSlide('cars-carousel', 1)">❯</button>
+        </div>
+    </div>
+
     <div class="listings" id="listings">
-        <!-- House Rentals Section -->
-        <div class="listing-card" data-category="rentals">
+        <!-- House Rentals Listings -->
+        <div class="listing-card" data-category="house-rentals">
             <img src="house-kigali.jpg" alt="Cozy house in Kigali">
             <div class="card-content">
                 <h3 class="card-title">Cozy 2-Bed House Rental</h3>
                 <p class="card-price">RWF 500,000/month</p>
-                <p class="card-desc">Modern house in central Kigali with garden. Available now!</p>
-                <a href="mailto:contact@kigalideals.com?subject=House Rental Inquiry" class="btn">Inquire</a>
+                <p class="card-desc">Modern house in central Kigali with garden and parking. Available immediately.</p>
+                <a href="mailto:contact@kigalideals.com?subject=House Rental Inquiry - Cozy 2-Bed" class="btn">Inquire</a>
+            </div>
+        </div>
+        <div class="listing-card" data-category="house-rentals">
+            <img src="house-kigali-2.jpg" alt="Modern apartment"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">1-Bed Apartment Rental</h3>
+                <p class="card-price">RWF 300,000/month</p>
+                <p class="card-desc">Furnished apartment near markets, ideal for singles or couples.</p>
+                <a href="mailto:contact@kigalideals.com?subject=House Rental Inquiry - 1-Bed Apt" class="btn">Inquire</a>
+            </div>
+        </div>
+        <div class="listing-card" data-category="house-rentals">
+            <img src="house-kigali-3.jpg" alt="Luxury villa"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">3-Bed Villa Rental</h3>
+                <p class="card-price">RWF 1,200,000/month</p>
+                <p class="card-desc">Spacious villa with pool in upscale neighborhood.</p>
+                <a href="mailto:contact@kigalideals.com?subject=House Rental Inquiry - 3-Bed Villa" class="btn">Inquire</a>
             </div>
         </div>
 
-        <!-- Used Materials Section -->
+        <!-- Houses on Sale Listings -->
+        <div class="listing-card" data-category="houses-sale">
+            <img src="house-sale-1.jpg" alt="House for sale"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">4-Bed Family Home</h3>
+                <p class="card-price">RWF 45,000,000</p>
+                <p class="card-desc">Newly built home with 3 bathrooms and garage in quiet area.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Houses Sale Inquiry - Family Home" class="btn">View Details</a>
+            </div>
+        </div>
+        <div class="listing-card" data-category="houses-sale">
+            <img src="house-sale-2.jpg" alt="Investment property"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">2-Bed Investment House</h3>
+                <p class="card-price">RWF 25,000,000</p>
+                <p class="card-desc">Rental-ready property with high yield potential.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Houses Sale Inquiry - Investment" class="btn">View Details</a>
+            </div>
+        </div>
+        <div class="listing-card" data-category="houses-sale">
+            <img src="house-sale-3.jpg" alt="Luxury sale"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">Luxury 5-Bed Mansion</h3>
+                <p class="card-price">RWF 120,000,000</p>
+                <p class="card-desc">Gated community with views and amenities.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Houses Sale Inquiry - Mansion" class="btn">View Details</a>
+            </div>
+        </div>
+
+        <!-- Used Materials Listings -->
         <div class="listing-card" data-category="materials">
-            <img src="plot-1.jpg" alt="Used construction materials"> <!-- Reuse your image for demo -->
+            <img src="materials-1.jpg" alt="Used bricks"> <!-- Upload this -->
             <div class="card-content">
-                <h3 class="card-title">Used Bricks & Cement</h3>
+                <h3 class="card-title">Used Bricks Bundle</h3>
                 <p class="card-price">RWF 50,000/bundle</p>
-                <p class="card-desc">Quality used materials from recent builds—perfect for DIY projects.</p>
-                <a href="mailto:contact@kigalideals.com?subject=Materials Inquiry" class="btn">Buy Now</a>
+                <p class="card-desc">500 high-quality used bricks, great for construction.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Materials Inquiry - Bricks" class="btn">Buy Now</a>
             </div>
         </div>
-
-        <!-- Plots Section -->
-        <div class="listing-card" data-category="plots">
-            <img src="plot-1.jpg" alt="Prime plot in Kigali suburbs">
+        <div class="listing-card" data-category="materials">
+            <img src="materials-2.jpg" alt="Recycled wood"> <!-- Upload this -->
             <div class="card-content">
-                <h3 class="card-title">500sqm Plot for Sale</h3>
-                <p class="card-price">RWF 20,000,000</p>
-                <p class="card-desc">Fertile land in growing suburb, ready for your dream home.</p>
-                <a href="mailto:contact@kigalideals.com?subject=Plot Inquiry" class="btn">View Details</a>
+                <h3 class="card-title">Recycled Timber</h3>
+                <p class="card-price">RWF 30,000/cubic meter</p>
+                <p class="card-desc">Durable wood from sustainable sources.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Materials Inquiry - Timber" class="btn">Buy Now</a>
+            </div>
+        </div>
+        <div class="listing-card" data-category="materials">
+            <img src="materials-3.jpg" alt="Cement"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">Used Cement Bags</h3>
+                <p class="card-price">RWF 8,000/bag</p>
+                <p class="card-desc">Sealed bags, perfect for small projects.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Materials Inquiry - Cement" class="btn">Buy Now</a>
             </div>
         </div>
 
-        <!-- Car Rentals Section -->
+        <!-- Plots on Sale Listings -->
+        <div class="listing-card" data-category="plots">
+            <img src="plot-1.jpg" alt="Prime plot">
+            <div class="card-content">
+                <h3 class="card-title">500sqm Suburban Plot</h3>
+                <p class="card-price">RWF 20,000,000</p>
+                <p class="card-desc">Flat land with utilities, ideal for building.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Plot Inquiry - Suburban" class="btn">View Details</a>
+            </div>
+        </div>
+        <div class="listing-card" data-category="plots">
+            <img src="plot-2.jpg" alt="City plot"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">300sqm City Plot</h3>
+                <p class="card-price">RWF 35,000,000</p>
+                <p class="card-desc">Central location, commercial potential.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Plot Inquiry - City" class="btn">View Details</a>
+            </div>
+        </div>
+        <div class="listing-card" data-category="plots">
+            <img src="plot-3.jpg" alt="Rural plot"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">1000sqm Rural Plot</h3>
+                <p class="card-price">RWF 10,000,000</p>
+                <p class="card-desc">Scenic land for farming or retreat.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Plot Inquiry - Rural" class="btn">View Details</a>
+            </div>
+        </div>
+
+        <!-- Car Rentals Listings -->
         <div class="listing-card" data-category="cars">
-            <img src="transport-van.jpg" alt="Reliable rental van">
+            <img src="transport-van.jpg" alt="Rental van">
             <div class="card-content">
                 <h3 class="card-title">Toyota Van Rental</h3>
                 <p class="card-price">RWF 100,000/day</p>
-                <p class="card-desc">Spacious van for family trips or business—includes insurance.</p>
-                <a href="mailto:contact@kigalideals.com?subject=Car Rental Inquiry" class="btn">Book Now</a>
+                <p class="card-desc">Spacious for groups, full insurance included.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Car Rental Inquiry - Van" class="btn">Book Now</a>
+            </div>
+        </div>
+        <div class="listing-card" data-category="cars">
+            <img src="car-rental-1.jpg" alt="Sedan rental"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">Compact Sedan Rental</h3>
+                <p class="card-price">RWF 50,000/day</p>
+                <p class="card-desc">Fuel-efficient for city drives.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Car Rental Inquiry - Sedan" class="btn">Book Now</a>
+            </div>
+        </div>
+        <div class="listing-card" data-category="cars">
+            <img src="car-rental-2.jpg" alt="SUV rental"> <!-- Upload this -->
+            <div class="card-content">
+                <h3 class="card-title">SUV Adventure Rental</h3>
+                <p class="card-price">RWF 150,000/day</p>
+                <p class="card-desc">4x4 for off-road, weekly discounts available.</p>
+                <a href="mailto:contact@kigalideals.com?subject=Car Rental Inquiry - SUV" class="btn">Book Now</a>
             </div>
         </div>
     </div>
 
     <script>
-        function filterListings() {
+        let currentSlides = {}; // Track current slide per carousel
+
+        function filterAndShowBanner() {
             const filter = document.getElementById('filter').value;
             const cards = document.querySelectorAll('.listing-card');
+            const banners = document.querySelectorAll('.category-banner');
+
+            // Hide all banners
+            banners.forEach(banner => banner.style.display = 'none');
+
+            // Show relevant banner and init slide if filtered
+            if (filter !== 'all') {
+                const bannerId = filter + '-banner';
+                const banner = document.getElementById(bannerId);
+                if (banner) {
+                    banner.style.display = 'block';
+                    initCarousel(bannerId.replace('-banner', ''));
+                }
+            }
+
+            // Filter cards
             cards.forEach(card => {
                 if (filter === 'all' || card.dataset.category === filter) {
                     card.classList.remove('hidden');
@@ -175,6 +400,41 @@
                 }
             });
         }
+
+        function initCarousel(carouselId) {
+            if (!currentSlides[carouselId]) currentSlides[carouselId] = 0;
+            const carousel = document.getElementById(carouselId + '-carousel');
+            const slides = carousel.children.length;
+            if (slides > 0) {
+                updateCarousel(carouselId, currentSlides[carouselId]);
+            }
+        }
+
+        function changeSlide(carouselId, direction) {
+            const carousel = document.getElementById(carouselId);
+            const slides = carousel.children.length;
+            currentSlides[carouselId] = (currentSlides[carouselId] + direction + slides) % slides;
+            updateCarousel(carouselId, currentSlides[carouselId]);
+        }
+
+        function updateCarousel(carouselId, slideIndex) {
+            const carousel = document.getElementById(carouselId);
+            carousel.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        // Auto-advance slides every 3 seconds when banner is visible
+        setInterval(() => {
+            const visibleBanner = document.querySelector('.category-banner[style*="block"], .category-banner[style*="inline"], .category-banner:not([style*="none"])');
+            if (visibleBanner) {
+                const carouselId = visibleBanner.id.replace('-banner', '');
+                if (currentSlides[carouselId] !== undefined) {
+                    changeSlide(carouselId + '-carousel', 1);
+                }
+            }
+        }, 3000);
+
+        // Initial load: Show all
+        filterAndShowBanner();
     </script>
 </body>
 </html>
