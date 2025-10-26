@@ -4,43 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - KIGALI DEALS</title>
-    <style> /* Copy nav & global CSS */ </style>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; line-height: 1.6; }
+        nav { position: fixed; top: 0; width: 100%; background: #4CAF50; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 1000; }
+        nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; }
+        nav li { position: relative; }
+        nav a { display: block; color: white; text-decoration: none; padding: 15px 20px; font-weight: bold; }
+        nav a:hover { background: #45a049; }
+        .dropdown { position: absolute; top: 100%; left: 0; background: #4CAF50; min-width: 200px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: none; }
+        .dropdown a { padding: 10px 20px; }
+        li:hover .dropdown { display: block; }
+        .hamburger { display: none; background: none; border: none; color: white; font-size: 20px; padding: 15px; cursor: pointer; }
+        @media (max-width: 600px) { nav ul { flex-direction: column; display: none; } .hamburger { display: block; } .nav-open ul { display: flex; } }
+        main { margin-top: 60px; padding: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        h1 { text-align: center; color: #4CAF50; font-size: 2.5em; margin-bottom: 10px; }
+        .intro { text-align: center; margin-bottom: 40px; font-size: 1.1em; color: #666; }
+        .contact-form { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+        .contact-form label { display: block; margin-bottom: 5px; font-weight: bold; color: #4CAF50; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 20px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; box-sizing: border-box; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: #4CAF50; outline: none; }
+        .contact-form button { background: #4CAF50; color: white; padding: 12px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; font-weight: bold; transition: background 0.3s; }
+        .contact-form button:hover { background: #45a049; }
+        .contact-info { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-top: 30px; text-align: center; }
+        .contact-info p { margin: 10px 0; font-size: 1.1em; }
+        .contact-info a { color: #4CAF50; text-decoration: none; font-weight: bold; }
+        .contact-info a:hover { text-decoration: underline; }
+        .success-message { background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-top: 20px; display: none; }
+        footer { background: #4CAF50; color: white; text-align: center; padding: 20px; margin-top: 40px; }
+        footer a { color: white; text-decoration: none; }
+        @media (max-width: 600px) { h1 { font-size: 2em; } .contact-form { padding: 20px; } }
+    </style>
 </head>
 <body>
-   <nav>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
-    <ul id="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li class="dropdown-container">
-            <a href="services.html">Services</a> <!-- Overview page, or remove if not needed -->
-            <div class="dropdown">
-                <a href="cars.html">Cars on Rent</a>
-                <a href="house-rentals.html">Houses on Rent</a>
-                <a href="houses-sale.html">Houses on Sale</a>
-                <a href="materials.html">Materials on Sale</a>
-                <a href="plots.html">Plots on Sale</a>
-            </div>
-        </li>
-        <li><a href="history.html">History</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
-</nav>
-    <main style="margin-top: 60px; padding: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
-        <h1 style="text-align: center; color: #4CAF50;">Contact Us</h1>
-        <p>Reach out for inquiries, bookings, or deals. We're here to help!</p>
-        <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-            <p><strong>Email:</strong> <a href="mailto:info@ibyiziwacu.com">info@ibyiziwacu.com</a></p>
+    <nav>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <ul id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown-container">
+                <a href="services.html">Services</a>
+                <div class="dropdown">
+                    <a href="cars.html">Cars on Rent</a>
+                    <a href="house-rentals.html">Houses on Rent</a>
+                    <a href="houses-sale.html">Houses on Sale</a>
+                    <a href="materials.html">Materials on Sale</a>
+                    <a href="plots.html">Plots on Sale</a>
+                </div>
+            </li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>Get in Touch!</h1>
+        <p class="intro">Ready for a real deal? We're just a message away—share your inquiry, and we'll respond within 24 hours!</p>
+        
+        <form class="contact-form" action="https://formspree.io/f/mnnoqklr" method="POST">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="subject">Subject (Optional):</label>
+            <input type="text" id="subject" name="_subject" placeholder="e.g., Car Rental Inquiry">
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required placeholder="Tell us more about what you're looking for..."></textarea>
+            
+            <button type="submit">Send Message</button>
+        </form>
+        
+        <div class="success-message" id="success">Thank you! Your message has been sent. We'll get back to you soon.</div>
+        
+        <div class="contact-info">
+            <h2>Or Reach Us Directly</h2>
+            <p><strong>Email:</strong> <a href="mailto:infokigalideals@gmail.com">infokigalideals@gmail.com</a></p>
             <p><strong>Phone:</strong> <a href="tel:+250789815272">+250 789 815 272</a> / <a href="tel:+250780111918">+250 780 111 918</a></p>
-            <form style="max-width: 500px; margin: 20px 0;">
-                <label>Name: <input type="text" style="width: 100%; padding: 10px; margin: 5px 0;"></label><br>
-                <label>Email: <input type="email" style="width: 100%; padding: 10px; margin: 5px 0;"></label><br>
-                <label>Message: <textarea style="width: 100%; padding: 10px; margin: 5px 0; height: 100px;"></textarea></label><br>
-                <button type="submit" class="btn" style="background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Send</button>
-            </form> <!-- Note: For real form submission, add Formspree/Netlify integration later -->
+            <p>Visit us in Kigali for personalized service—your satisfaction is our priority!</p>
         </div>
     </main>
-    <footer> <!-- Copy --> </footer>
-    <script> /* Copy toggleMenu */ </script>
+    <footer>
+        <p>&copy; 2025 KIGALI DEALS. All rights reserved. | <a href="contact.html">Contact Us</a></p>
+    </footer>
+    <script>
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('nav-open'); }
+        
+        // Simple client-side success handler (Formspree redirects; this is optional for UX)
+        document.querySelector('form').addEventListener('submit', function() {
+            document.getElementById('success').style.display = 'block';
+            setTimeout(() => { this.reset(); document.getElementById('success').style.display = 'none'; }, 5000);
+        });
+    </script>
 </body>
 </html>
